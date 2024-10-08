@@ -1,0 +1,136 @@
+<html>
+ <head>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .carousel {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            overflow: hidden;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .carousel-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-controls button {
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: #333;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .carousel-indicators button {
+            background: #ccc;
+            border: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .carousel-indicators button.active {
+            background: #333;
+        }
+  </style>
+ </head>
+ <body>
+  <div class="carousel">
+   <div class="carousel-inner">
+    <div class="carousel-item">
+     <img alt="A person playing guitar on stage with a spotlight" height="400" src="https://storage.googleapis.com/a1aa/image/VzYRvwBjQrqMCZg2rrSR47MRf257EPLsluETcbcSqLl0tXyJA.jpg" width="600"/>
+    </div>
+    <div class="carousel-item">
+     <img alt="A group of soccer players on the field with a referee showing a yellow card" height="400" src="https://storage.googleapis.com/a1aa/image/hd4uMFdzhTZcPJHT6DS5Gg1IHGJnelsXZIPkMBfYufKP3eSOB.jpg" width="600"/>
+    </div>
+    <div class="carousel-item">
+     <img alt="Two people wearing pink vests standing side by side" height="400" src="https://storage.googleapis.com/a1aa/image/ttZtW5sDSIKaHZcKIsYRwVzZzkH8zYtp36lpnkLefu3obvkTA.jpg" width="600"/>
+    </div>
+   </div>
+   <div class="carousel-controls">
+    <button id="prevBtn">
+     <i class="fas fa-chevron-left">
+     </i>
+    </button>
+    <button id="nextBtn">
+     <i class="fas fa-chevron-right">
+     </i>
+    </button>
+   </div>
+   <div class="carousel-indicators">
+    <button class="active">
+    </button>
+    <button>
+    </button>
+    <button>
+    </button>
+   </div>
+  </div>
+  <script>
+   const carouselInner = document.querySelector('.carousel-inner');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.carousel-indicators button');
+
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : indicators.length - 1;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < indicators.length - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+  </script>
+ </body>
+</html>
