@@ -1,0 +1,120 @@
+doctype html
+html
+  head
+    title Image Carousel
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .carousel {
+        width: 80%;
+        max-width: 1000px;
+        position: relative;
+        overflow: hidden;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+      .carousel-item {
+        min-width: 100%;
+        box-sizing: border-box;
+        padding: 20px;
+        text-align: center;
+      }
+      .carousel-item img {
+        max-width: 100%;
+        border-radius: 10px;
+      }
+      .carousel-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+      .carousel-control.left {
+        left: 10px;
+      }
+      .carousel-control.right {
+        right: 10px;
+      }
+      .carousel-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+      }
+      .carousel-indicators button {
+        width: 10px;
+        height: 10px;
+        background-color: #ccc;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .carousel-indicators button.active {
+        background-color: #000;
+      }
+  body
+    .carousel
+      .carousel-inner
+        .carousel-item
+          img(src="https://storage.googleapis.com/a1aa/image/IXcxTPWXFuIVGtFDOU4DltXxekcb0bYBe0uUwSgvDWwFfeSOB.jpg", alt="Soccer players on the field with a referee showing a yellow card", width="600", height="400")
+        .carousel-item
+          img(src="https://storage.googleapis.com/a1aa/image/XyOv7Kf0MOzgdqdAdRSNgsN7o6BkyQrVuzvHQhL737jhvXyJA.jpg", alt="Two people wearing pink vests standing against a white background", width="600", height="400")
+        .carousel-item
+          img(src="https://storage.googleapis.com/a1aa/image/UFPJKgNkAlYQHx2e9f4dyuhYeGl8xJyOCNYbtWQGGmqNe9SOB.jpg", alt="Event poster with text 'Jalan Sehat Bersama Ria Ricis' and images of people", width="600", height="400")
+      button.carousel-control.left(onclick="prevSlide()") ◀
+      button.carousel-control.right(onclick="nextSlide()") ▶
+      .carousel-indicators
+        button.active(onclick="goToSlide(0)")
+        button(onclick="goToSlide(1)")
+        button(onclick="goToSlide(2)")
+    script.
+      let currentSlide = 0;
+
+      function showSlide(index) {
+          const slides = document.querySelectorAll('.carousel-item');
+          const indicators = document.querySelectorAll('.carousel-indicators button');
+          if (index >= slides.length) {
+              currentSlide = 0;
+          } else if (index < 0) {
+              currentSlide = slides.length - 1;
+          } else {
+              currentSlide = index;
+          }
+          const offset = -currentSlide * 100;
+          document.querySelector('.carousel-inner').style.transform = `translateX(${offset}%)`;
+          indicators.forEach((indicator, i) => {
+              indicator.classList.toggle('active', i === currentSlide);
+          });
+      }
+
+      function nextSlide() {
+          showSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+          showSlide(currentSlide - 1);
+      }
+
+      function goToSlide(index) {
+          showSlide(index);
+      }
